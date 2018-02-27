@@ -26,9 +26,8 @@ export default class MediaContent extends React.Component {
 
   renderNews = (item, index) => {
     let image = null
-    if (item.bagItem) {
+    if (item && item.bagItem) {
       image = item.bagItem[0].medias[0].href
-      console.log(image)
     }
 
     const title = item.title

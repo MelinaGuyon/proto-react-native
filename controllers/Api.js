@@ -1,7 +1,7 @@
 
 function connect() {
   return new Promise((resolve, reject) => {
-    fetch('https://api.afp.com/v1/api/latest?access_token=fc603bb1-f4f9-45a4-9d8c-74efe3b0bce4')
+    fetch('https://api.afp.com/v1/api/latest?access_token=c3c7e9a4-ff5b-4d82-87fa-67ee48fdaa56')
       .then(response => {
         if (response.status === 200) {
           resolve(response)
