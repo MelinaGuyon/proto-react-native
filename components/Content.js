@@ -25,6 +25,7 @@ export default class Content extends React.Component {
     const title = item.title
     const article = item.news[0]
     const date = item.published
+
     return (
       <View key={index} style={styles.mediaItem} >
         {image &&
@@ -41,12 +42,42 @@ export default class Content extends React.Component {
     )
   }
 
+  checkFiltre(datas) {
+    const { filtre } = this.props
+
+    if (datas) {
+
+      if (filtre === "") {
+        return datas
+      }
+      else {
+        let newDatas = []
+
+        for (let i = 0; i < datas.length; i++) {
+
+          let title = datas[i].title
+          let article = datas[i].news[0]
+
+          if ( ( title && title.indexOf(filtre) !== -1) || ( article && article.indexOf(filtre) !== -1 ) ) {
+            console.log("oui")
+            newDatas.push(datas[i])
+          }
+        }
+
+        return newDatas
+      }
+
+    }
+
+  }
+
   render() {
     const { datas } = this.props
+    const newDatas = this.checkFiltre(datas)
 
     return (
       <ScrollView style={styles.container}>
-        {map(datas, this.renderNews)}
+        {map(newDatas, this.renderNews)}
       </ScrollView>
     );
   }

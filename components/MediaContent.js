@@ -2,18 +2,26 @@ import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 
 import Api from '../controllers/Api';
+import Filtre from './Filtre';
 import Content from './Content';
 
 export default class MediaContent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      datas: null
+      datas: null,
+      filtre: ""
     }
   }
 
   componentWillMount() {
     this.connect()
+    console.log(this.state)
+  }
+
+  filtreIsUpdated = (filtre) => {
+    console.log(filtre)
+    this.setState({filtre : filtre})
   }
 
   connect() {
@@ -24,12 +32,13 @@ export default class MediaContent extends React.Component {
   }
 
   render() {
-    const { datas } = this.state
+    const { datas, filtre } = this.state
     const { navigation } = this.props
 
     return (
       <ScrollView style={styles.container}>
-        <Content datas={datas} navigation={navigation} />
+        <Filtre datas={datas} onUpdateFiltre={this.filtreIsUpdated} />
+        <Content datas={datas} filtre={filtre} navigation={navigation} />
       </ScrollView>
     );
   }
