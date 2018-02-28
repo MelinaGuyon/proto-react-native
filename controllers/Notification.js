@@ -16,7 +16,9 @@ function notificate() {
     body: 'text'
   }
   const time = Date.now() + 5000
+
   Notifications.addListener(() => { Alert.alert('Notification!') })
+
   getiOSNotificationPermission().then(()=> {
     Notifications.scheduleLocalNotificationAsync(localNotification, { time })
   }).catch((error)=> { console.warn(error) })
