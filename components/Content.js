@@ -1,8 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, List, ListItem, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, List, ListItem, Image, TouchableWithoutFeedback } from 'react-native';
 import { map } from 'lodash'
+import { StackNavigator } from 'react-navigation';
+import Article from './Article';
 
 export default class Content extends React.Component {
+  handleClick = item => () => {
+    this.props.navigation.navigate('Article', { article: item })
+  }
+
+  formatText = text => {
+    const textTab = text.split(' ').slice(0, 12)
+    const newText = textTab.join(' ') + '...'
+
+    return <Text style={styles.text}>{newText}</Text>
+  }
+
   renderNews = (item, index) => {
     let image = null
     if (item && item.bagItem) {
@@ -13,19 +26,24 @@ export default class Content extends React.Component {
     const article = item.news[0]
     const date = item.published
     return (
-      <View key={index} style={styles.mediaItem}>
+      <View key={index} style={styles.mediaItem} >
         {image &&
           <Image style={styles.image} source={{uri: image}}/>
         }
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.text}>{article}</Text>
-        <Text style={styles.date}>{date}</Text>
+        <TouchableWithoutFeedback onPress={this.handleClick(item)} >
+          <View>
+            <Text style={styles.title}>{title}</Text>
+            {this.formatText(article)}
+            <Text style={styles.date}>{date}</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     )
   }
 
   render() {
     const { datas } = this.props
+
     return (
       <ScrollView style={styles.container}>
         {map(datas, this.renderNews)}

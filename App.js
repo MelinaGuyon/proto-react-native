@@ -1,9 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import MediaContent from './components/MediaContent';
-import Notification from './controllers/Notification';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { StackNavigator } from 'react-navigation'
+import MediaContent from './components/MediaContent'
+import Article from './components/Article'
+import Notification from './controllers/Notification'
+
+const RootStack = StackNavigator({
+  MediaContent: { screen: MediaContent },
+  Article: { screen: Article }
+})
 
 export default class App extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -21,11 +29,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <MediaContent />
-      </View>
-    );
+    return <RootStack />
   }
 }
 

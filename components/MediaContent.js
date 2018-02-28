@@ -25,9 +25,11 @@ export default class MediaContent extends React.Component {
 
   render() {
     const { datas } = this.state
+    const { navigation } = this.props
+
     return (
       <ScrollView style={styles.container}>
-        <Content datas={datas} />
+        <Content datas={datas} navigation={navigation} />
       </ScrollView>
     );
   }
